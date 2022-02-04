@@ -1,0 +1,37 @@
+# 先数组后计数
+依次遍历rectangles数组，找出每个矩形的最大正方形边长，放入边长数组arr；
+找出边长数组最大值maxLen；
+在边长数组中计数manLen的个数。
+```
+var countGoodRectangles = function(rectangles) {
+    let arr = [], res = 0
+    for(const rectangle of rectangles){
+        arr.push(Math.min(rectangle[0], rectangle[1]))
+    }
+    let maxLen = Math.max(...arr)
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i] == maxLen) {
+            res++
+        }
+    }
+    return res
+};
+```
+
+# 一次遍历
+一次遍历，实时更新最大正方形边长并计数。
+```
+var countGoodRectangles = function(rectangles) {
+    let maxLen = 0, res = 0
+    for(const rectangle of rectangles){
+        let a = rectangle[0], b = rectangle[1]
+        let len = Math.min(a, b)
+        if(len == maxLen) res++
+        else if(len > maxLen){
+            maxLen = len
+            res = 1
+        }
+    }
+    return res
+};
+```
